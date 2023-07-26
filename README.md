@@ -4,7 +4,7 @@
 ![voice_assisted_chatbot_block_diagram](https://github.com/sungbinlee/mock-interviewer/assets/52542229/50c0dee2-cb8e-4c4c-b97c-a70bbe32b139)
 1. Voice Input: 사용자가 음성으로 입력한 내용입니다. 클라이언트에서 입력을 받습니다.
 2. STT (Speech-to-Text): Voice Input으로부터 받은 음성을 텍스트로 변환합니다.
-3. Prompt INPUT: STT를 통해 변환된 텍스트를 OpenAI API에 전달하기 전에 추가적인 처리나 포맷팅을 위해 사용될 수 있는 입력입니다.
+3. Prompt Input: STT를 통해 변환된 텍스트를 OpenAI API에 전달하기 전에 추가적인 처리나 포맷팅을 위해 사용될 수 있는 입력입니다.
 4. OpenAI API: STT를 통해 변환된 텍스트 또는 Prompt INPUT을 OpenAI API에 전달하여 인공지능 모델인 GPT-3 등과 상호작용합니다. 사용자의 입력을 분석하고 해당하는 응답을 생성합니다.
 5. Response Output: OpenAI API로부터 받은 응답을 나타냅니다. 이 응답은 텍스트 형태로 제공됩니다.
 6. TTS (Text-to-Speech): Response Output으로부터 받은 텍스트를 음성으로 변환합니다.
