@@ -1,10 +1,45 @@
+// Load chat history and check user authentication status when the page loads
+window.addEventListener('load', function () {
+    loadChatHistory();
+    checkAuthenticationStatus();
+  });
+  
+  // Function to check user authentication status and display the appropriate buttons
+  function checkAuthenticationStatus() {
+    const token = localStorage.getItem('token');
+    const authMessage = document.getElementById('authMessage');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const registerBtn = document.getElementById('registerBtn');
+  
+    if (token) {
+      // User is authenticated, show the "Logout" button and hide "Login" and "Register" buttons
+      authMessage.style.display = 'none';
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'block';
+      registerBtn.style.display = 'none';
+    } else {
+      // User is not authenticated, show the "Login" and "Register" buttons and display login message
+      authMessage.style.display = 'block';
+      loginBtn.style.display = 'block';
+      logoutBtn.style.display = 'none';
+      registerBtn.style.display = 'block';
+    }
+  }
+  
+  // Function to handle logout button click event
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    logout();
+  });
+
+  
 function sendMessage() {
     var messageInput = document.getElementById("messageInput");
     var message = messageInput.value.trim();
   
     if (message !== "") {
-      addMessageToChat("나", message);
-      messageInput.value = "";
+        messageInput.value = "";
+        addMessageToChat("user", message);
   
       // Get the token from local storage
       const token = localStorage.getItem('token');
@@ -23,7 +58,9 @@ function sendMessage() {
       .then(response => response.json())
       .then(data => {
         // Add AI response to the chat
-        addMessageToChat("AI", data.response);
+        addMessageToChat("assistant", data.response);
+
+        playTextToSpeech(data.audio_url);
       })
       .catch(error => console.error('Error:', error));
     }
@@ -33,39 +70,69 @@ function sendMessage() {
   function addMessageToChat(sender, message) {
     var chatBox = document.getElementById("chatBox");
     var newMessage = document.createElement("div");
-    newMessage.textContent = sender + ": " + message;
+    newMessage.textContent = message;
+  
+    // Add CSS classes based on the sender's role
+    if (sender === "user") {
+      newMessage.classList.add("user-message");
+    } else if (sender === "assistant") {
+      newMessage.classList.add("assistant-message");
+    }
+  
     chatBox.appendChild(newMessage);
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
   function loadChatHistory() {
     const token = localStorage.getItem('token');
-    console.log(token)
-    fetch('http://127.0.0.1:8000/api/chat/gpt/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${token}` // Include the token in the headers
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Display chat history in the chat box
-      data.conversations.forEach(conversation => {
-        addMessageToChat(conversation.role, conversation.content);
-      });
-    })
-    .catch(error => console.error('Error:', error));
+  
+    if (token) {
+      fetch('http://127.0.0.1:8000/api/chat/gpt/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}` // Include the token in the headers
+        }
+      })
+      .then(response => {
+        if (response.status === 401) {
+          // User is not authenticated, display a message or redirect to login page
+          console.log('User is not authenticated.');
+          return [];
+        } else {
+          return response.json();
+        }
+      })
+      .then(data => {
+        // Display chat history in the chat box
+        for (let i = 0; i < data.conversations.length; i++) {
+          const conversation = data.conversations[i];
+          addMessageToChat(conversation.role, conversation.content);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    } else {
+      // User is not authenticated, display a message or redirect to login page
+      console.log('User is not authenticated.');
+    }
   }
+
+  function playTextToSpeech(audioUrl) {
+    var ttsAudio = document.getElementById("ttsAudio");
+    ttsAudio.src = audioUrl;
+    ttsAudio.play();
+  }
+  
 
   // Load chat history when the page loads
   window.addEventListener('load', loadChatHistory);
 
   // Handle Enter key press event
   var messageInput = document.getElementById("messageInput");
-  messageInput.addEventListener("keydown", function (event) {
+  messageInput.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
       sendMessage();
     }
+    
 
   });

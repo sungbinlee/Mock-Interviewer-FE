@@ -58,3 +58,27 @@ body {
     margin-bottom: 10px;
   }
   
+
+  /* Add your existing CSS styles here */
+
+/* Style for user messages */
+.user-message {
+    background-color: #cce5ff;
+    color: #000;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 10px;
+    float: right;
+    clear: both; /* Add this to clear the float */
+  }
+  
+  /* Style for assistant messages */
+  .assistant-message {
+    background-color: #f8f8f8;
+    color: #333;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 10px;
+    float: left;
+    clear: both; /* Add this to clear the float */
+  }
