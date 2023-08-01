@@ -105,7 +105,7 @@ function sendMessage() {
       })
       .then(data => {
         // Display chat history in the chat box
-        for (let i = 0; i < data.conversations.length; i++) {
+        for (let i = 1; i < data.conversations.length; i++) {
           const conversation = data.conversations[i];
           addMessageToChat(conversation.role, conversation.content);
         }
