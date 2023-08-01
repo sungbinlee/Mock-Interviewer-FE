@@ -117,6 +117,37 @@ function sendMessage() {
     }
   }
 
+  function startSpeechToText() {
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+  
+      recognition.lang = 'ko-KR'; // Set the language to Korean (you can change it to another supported language)
+  
+      recognition.onresult = function(event) {
+        const speechText = event.results[0][0].transcript;
+        document.getElementById('messageInput').value = speechText;
+      };
+  
+      recognition.onerror = function(event) {
+        if (event.error === 'no-speech') {
+          console.log('No speech detected. Please try again.');
+        } else {
+          console.error('Speech recognition error:', event.error);
+        }
+      };
+  
+      recognition.onend = function() {
+        console.log('Speech recognition ended.');
+      };
+  
+      recognition.start();
+    } else {
+      alert('Speech-to-text not supported in your browser.');
+    }
+  }
+
   function playTextToSpeech(audioUrl) {
     var ttsAudio = document.getElementById("ttsAudio");
     ttsAudio.src = audioUrl;
@@ -133,6 +164,9 @@ function sendMessage() {
     if (event.key === "Enter") {
       sendMessage();
     }
+
+    
+
     
 
   });
