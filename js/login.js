@@ -1,9 +1,9 @@
 document.getElementById('loginForm').addEventListener('submit', function (event) {
     event.preventDefault();
-
+  
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
+  
     // Send login data to the backend API using Fetch API
     fetch('http://127.0.0.1:8000/api/user/login/', {
       method: 'POST',
@@ -17,8 +17,12 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     })
     .then(response => {
       if (response.status === 200) {
-        // Successful login, redirect to the chat page
-        window.location.href = 'index.html';
+        // Successful login, store the token in local storage
+        response.json().then(data => {
+            localStorage.setItem('token', data.Token);
+          // Redirect to the chat page
+            window.location.href = 'index.html';
+        });
       } else if (response.status === 400) {
         // Bad request, show error message from the server
         response.json().then(data => {

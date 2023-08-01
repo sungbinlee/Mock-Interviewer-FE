@@ -1,16 +1,20 @@
 function sendMessage() {
     var messageInput = document.getElementById("messageInput");
     var message = messageInput.value.trim();
-
+  
     if (message !== "") {
       addMessageToChat("나", message);
       messageInput.value = "";
-
-      // Send the message to the backend API
+  
+      // Get the token from local storage
+      const token = localStorage.getItem('token');
+  
+      // Send the message to the backend API with the token in the headers
       fetch('http://127.0.0.1:8000/api/chat/gpt/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}` // Include the token in the headers
         },
         body: JSON.stringify({
           user_input: message
@@ -35,10 +39,13 @@ function sendMessage() {
   }
 
   function loadChatHistory() {
+    const token = localStorage.getItem('token');
+    console.log(token)
     fetch('http://127.0.0.1:8000/api/chat/gpt/', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}` // Include the token in the headers
       }
     })
     .then(response => response.json())
