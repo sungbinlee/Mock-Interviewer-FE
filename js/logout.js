@@ -2,7 +2,7 @@ function logout() {
     const token = localStorage.getItem('token');
   
     // Send the logout request to the backend API with the token in the headers
-    fetch('http://127.0.0.1:8000/api/user/logout/', {
+    fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/user/logout/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

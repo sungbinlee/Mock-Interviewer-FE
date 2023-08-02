@@ -5,7 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     const password = document.getElementById('password').value;
   
     // Send login data to the backend API using Fetch API
-    fetch('http://127.0.0.1:8000/api/user/login/', {
+    fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/user/login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

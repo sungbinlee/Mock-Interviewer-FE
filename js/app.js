@@ -46,7 +46,7 @@ function sendMessage() {
         const token = localStorage.getItem('token');
 
         // Send the message to the backend API with the token in the headers
-        fetch('http://127.0.0.1:8000/api/chat/gpt/', {
+        fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +60,6 @@ function sendMessage() {
             .then(data => {
                 // Add AI response to the chat
                 addMessageToChat("assistant", data.response);
-
                 playTextToSpeech(data.audio_url);
             })
             .catch(error => console.error('Error:', error));
@@ -88,7 +87,7 @@ function loadChatHistory() {
     const token = localStorage.getItem('token');
     checkChatRequestCount()
     if (token) {
-        fetch('http://127.0.0.1:8000/api/chat/gpt/', {
+        fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -130,7 +129,7 @@ function startInterview() {
     const token = localStorage.getItem('token');
     // Check if the interview topic is not empty
     if (interviewTopic !== "") {
-        fetch('http://127.0.0.1:8000/api/chat/gpt/', {
+        fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -144,7 +143,6 @@ function startInterview() {
             .then(data => {
                 // Add AI response to the chat
                 addMessageToChat("assistant", data.response);
-
                 playTextToSpeech(data.audio_url);
             })
             .catch(error => console.error('Error:', error));
@@ -200,7 +198,7 @@ messageInput.addEventListener("keyup", function(event) {
 
 function checkChatRequestCount() {
     const token = localStorage.getItem('token');
-    fetch('http://127.0.0.1:8000/api/chat/gpt/', {
+    fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
