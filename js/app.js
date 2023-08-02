@@ -86,7 +86,7 @@ function addMessageToChat(sender, message) {
 
 function loadChatHistory() {
     const token = localStorage.getItem('token');
-
+    checkChatRequestCount()
     if (token) {
         fetch('http://127.0.0.1:8000/api/chat/gpt/', {
                 method: 'GET',
@@ -197,3 +197,25 @@ messageInput.addEventListener("keyup", function(event) {
         sendMessage();
     }
 });
+
+function checkChatRequestCount() {
+    const token = localStorage.getItem('token');
+    fetch('http://127.0.0.1:8000/api/chat/gpt/', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}`
+    }
+    })
+    .then(response => response.json())
+    .then(data => {
+    if (data.count >= 5) {
+        // Disable chat input if chat request count is 5 or more
+        document.getElementById('messageInput').disabled = true;
+        document.getElementById('messageInput').placeholder = '일일 채팅 요청 횟수를 초과했습니다.';
+        document.getElementById('messageInput').style.backgroundColor = '#ddd';
+        document.getElementById('sendMessageBtn').disabled = true;
+    }
+    })
+    .catch(error => console.error('Error:', error));
+}
