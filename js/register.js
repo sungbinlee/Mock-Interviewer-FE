@@ -13,7 +13,7 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     }
 
     // Send registration data to the backend API using Fetch API
-    fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/user/register/', {
+    fetch('https://api.sungbinlee.dev/api/user/register/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

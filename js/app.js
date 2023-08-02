@@ -46,7 +46,7 @@ function sendMessage() {
         const token = localStorage.getItem('token');
 
         // Send the message to the backend API with the token in the headers
-        fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
+        fetch('https://api.sungbinlee.dev/api/chat/gpt/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ function loadChatHistory() {
     const token = localStorage.getItem('token');
     checkChatRequestCount()
     if (token) {
-        fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
+        fetch('https://api.sungbinlee.dev/api/chat/gpt/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ function startInterview() {
     const token = localStorage.getItem('token');
     // Check if the interview topic is not empty
     if (interviewTopic !== "") {
-        fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
+        fetch('https://api.sungbinlee.dev/api/chat/gpt/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ messageInput.addEventListener("keyup", function(event) {
 
 function checkChatRequestCount() {
     const token = localStorage.getItem('token');
-    fetch('http://ec2-3-36-70-123.ap-northeast-2.compute.amazonaws.com/api/chat/gpt/', {
+    fetch('https://api.sungbinlee.dev/api/chat/gpt/', {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
