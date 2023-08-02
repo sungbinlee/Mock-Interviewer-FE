@@ -209,7 +209,7 @@ function checkChatRequestCount() {
     })
     .then(response => response.json())
     .then(data => {
-    if (data.count >= 5) {
+    if (data.count >= data.limit) {
         // Disable chat input if chat request count is 5 or more
         document.getElementById('messageInput').disabled = true;
         document.getElementById('messageInput').placeholder = '일일 채팅 요청 횟수를 초과했습니다.';
