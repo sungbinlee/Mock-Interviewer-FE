@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mock-Interviewer</title>
+  <title>Mock-Interviewer - 모의 면접 연습 사이트</title>
+  <meta name="description" content="Mock-Interviewer는 모의 면접 연습을 위한 웹 사이트입니다. AI 챗봇과 함께 면접을 진행하고, 음성으로 대화할 수 있습니다.">
+  <meta name="keywords" content="모의 면접, 면접 연습, AI 챗봇, 음성 대화, 인터뷰 주제">
+  <meta name="author" content="이승빈">
+
   <link rel="stylesheet" href="/css/styles.css">
+</head>
 </head>
 <body>
   <div class="container">
@@ -18,6 +23,9 @@
     </div>
 
     <div id="chatBox">
+      <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+      </div>
       <div id="startInterviewBox" style="display: none;">
         <input type="text" id="interviewTopicInput" placeholder="인터뷰 주제를 입력하세요..." />
         <button onclick="startInterview()">시작하기</button>
