@@ -4,6 +4,16 @@ window.addEventListener('load', function() {
     loadChatHistory();
 
 });
+function showLoading() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.style.display = 'flex';
+}
+
+function hideLoading() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.style.display = 'none';
+}
+
 
 // Function to check user authentication status and display the appropriate buttons
 function checkAuthenticationStatus() {
@@ -41,6 +51,7 @@ function sendMessage() {
     if (message !== "") {
         messageInput.value = "";
         addMessageToChat("user", message);
+        showLoading();
 
         // Get the token from local storage
         const token = localStorage.getItem('token');
@@ -58,6 +69,7 @@ function sendMessage() {
             })
             .then(response => response.json())
             .then(data => {
+                hideLoading(); // AI 응답을 받으면 로딩 창 숨기기
                 // Add AI response to the chat
                 addMessageToChat("assistant", data.response);
                 playTextToSpeech(data.audio_url);
@@ -137,7 +149,7 @@ function startInterview() {
                 },
                 body: JSON.stringify({
                     interview_topic: interviewTopic 
-                  })
+                })
             })
             .then(response => response.json())
             .then(data => {
