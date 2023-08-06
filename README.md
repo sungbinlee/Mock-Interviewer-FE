@@ -5,7 +5,7 @@ Mock Interview 프로젝트는 사용자가 가상의 면접을 경험하고, �
 ## 배포
 - [배포 URL](https://chat.sungbinlee.dev)
 
-- [백엔드]([https://github.com/sungbinlee/Mock-Interviewer-FE](https://github.com/sungbinlee/Mock-Interviewer-BE)
+- [백엔드](https://github.com/sungbinlee/Mock-Interviewer-BE)
 
 - 배포환경
   - 백엔드 : AWS EC2, gunicorn, nginx
