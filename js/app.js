@@ -22,6 +22,9 @@ function checkAuthenticationStatus() {
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const registerBtn = document.getElementById('registerBtn');
+    const messageInput = document.getElementById("messageInput")
+    const sttBtn = document.getElementById("startSpeechBtn")
+    const sendBtn = document.getElementById("sendMessageBtn")
 
     if (token) {
         // User is authenticated, show the "Logout" button and hide "Login" and "Register" buttons
@@ -29,12 +32,19 @@ function checkAuthenticationStatus() {
         loginBtn.style.display = 'none';
         logoutBtn.style.display = 'block';
         registerBtn.style.display = 'none';
+        messageInput.placeholder = "메시지를 입력하세요...";
+        messageInput.disabled = false;
+        sttBtn.disabled = false;
+        sendBtn.disabled = false;
     } else {
         // User is not authenticated, show the "Login" and "Register" buttons and display login message
         authMessage.style.display = 'block';
         loginBtn.style.display = 'block';
         logoutBtn.style.display = 'none';
         registerBtn.style.display = 'block';
+        messageInput.disabled = true;
+        sttBtn.disabled = true;
+        sendBtn.disabled = true;
     }
 }
 
