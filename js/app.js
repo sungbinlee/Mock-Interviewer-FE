@@ -151,6 +151,7 @@ function startInterview() {
     const token = localStorage.getItem('token');
     // Check if the interview topic is not empty
     if (interviewTopic !== "") {
+        showLoading();
         fetch('https://api.sungbinlee.dev/api/chat/gpt/', {
                 method: 'POST',
                 headers: {
@@ -163,6 +164,7 @@ function startInterview() {
             })
             .then(response => response.json())
             .then(data => {
+                hideLoading(); // AI 응답을 받으면 로딩 창 숨기기
                 // Add AI response to the chat
                 addMessageToChat("assistant", data.response);
                 playTextToSpeech(data.audio_url);
