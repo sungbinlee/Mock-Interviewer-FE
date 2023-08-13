@@ -9,7 +9,7 @@ Mock Interview 프로젝트는 사용자가 가상의 면접을 경험하고, �
 
 - 배포환경
   - 백엔드 : AWS EC2, gunicorn, nginx
-  - 프론트엔드 : Github Page
+  - 프론트엔드 : Github Pages
 
 ## 프로젝트 기능
 
