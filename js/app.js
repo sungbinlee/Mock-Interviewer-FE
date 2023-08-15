@@ -14,6 +14,13 @@ function hideLoading() {
     loadingOverlay.style.display = 'none';
 }
 
+function deleteChat() {
+    const confirmDelete = confirm("정말로 이 채팅을 삭제하시겠습니까?");
+    if (confirmDelete) {
+      // 삭제 확인 시 채팅 삭제 로직을 추가
+      console.log("채팅 삭제 로직 실행");
+    }
+  }
 
 // Function to check user authentication status and display the appropriate buttons
 function checkAuthenticationStatus() {
@@ -22,9 +29,10 @@ function checkAuthenticationStatus() {
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const registerBtn = document.getElementById('registerBtn');
-    const messageInput = document.getElementById("messageInput")
-    const sttBtn = document.getElementById("startSpeechBtn")
-    const sendBtn = document.getElementById("sendMessageBtn")
+    const messageInput = document.getElementById("messageInput");
+    const sttBtn = document.getElementById("startSpeechBtn");
+    const sendBtn = document.getElementById("sendMessageBtn");
+    const deleteBtn = document.getElementById("deleteChatBtn");
 
     if (token) {
         // User is authenticated, show the "Logout" button and hide "Login" and "Register" buttons
@@ -36,6 +44,7 @@ function checkAuthenticationStatus() {
         messageInput.disabled = false;
         sttBtn.disabled = false;
         sendBtn.disabled = false;
+        deleteBtn.style.display = "block";
     } else {
         // User is not authenticated, show the "Login" and "Register" buttons and display login message
         authMessage.style.display = 'block';
@@ -45,6 +54,7 @@ function checkAuthenticationStatus() {
         messageInput.disabled = true;
         sttBtn.disabled = true;
         sendBtn.disabled = true;
+        deleteBtn.style.display = "none";
     }
 }
 
